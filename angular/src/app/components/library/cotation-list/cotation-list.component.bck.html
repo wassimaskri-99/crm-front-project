@@ -1,0 +1,53 @@
+<dx-data-grid
+  [dataSource]="cotations"
+  [allowColumnResizing]="true"
+  [rowAlternationEnabled]="true"
+  [filterRow]="{ visible: true }"
+  [searchPanel]="{ visible: true, width: 240, placeholder: 'Search...' }">
+  <dxi-column dataField="reference" caption="Reference"></dxi-column>
+  <dxi-column dataField="dateDemande" caption="Date Demande" dataType="date"></dxi-column>
+  <!-- <dxi-column dataField="idCommercial" caption="Commercial"></dxi-column>
+  <dxi-column dataField="idDemandeur" caption="client">
+    <dxo-lookup
+      [dataSource]="frameworkSalaire"
+      valueExpr="id"
+      displayExpr="fullName">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="idTypeOperation" caption="Type Op.">
+    <dxo-lookup
+      [dataSource]="tradeTypeOp"
+      valueExpr="id"
+      displayExpr="designation">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="idSens" caption="Sens Op.">
+    <dxo-lookup
+      [dataSource]="tradeSens"
+      valueExpr="id"
+      displayExpr="designation">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="idNature" caption="Nature">
+    <dxo-lookup
+      [dataSource]="natureCotation"
+      valueExpr="id"
+      displayExpr="designation">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="idCommercial" caption="Commercial">
+    <dxo-lookup
+      [dataSource]="frameworkSalaire"
+      valueExpr="id"
+      displayExpr="fullName">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="totalVente" caption="Total Vente"></dxi-column>
+  <dxi-column dataField="totalAchat" caption="Total Achat"></dxi-column>
+  <dxi-column dataField="marge" caption="Marge"></dxi-column>
+  <dxi-column dataField="status" caption="Status"></dxi-column>
+  <dxi-column type="buttons">
+    <dxi-button text="Edit" icon="edit"></dxi-button>
+    <dxi-button text="Delete" icon="trash"></dxi-button>
+  </dxi-column> -->
+</dx-data-grid>

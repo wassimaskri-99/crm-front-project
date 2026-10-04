@@ -1,0 +1,79 @@
+@use "../../../variables.scss" as *;
+
+:host {
+  --left-panel-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.dx-toolbar ::ng-deep {
+  margin-bottom: calc(var(--toolbar-margin-bottom) / 2);
+
+  .dx-toolbar-label > div {
+    @include header();
+  }
+}
+
+.view-wrapper {
+  padding-top: var(--content-padding);
+  padding-bottom: 0;
+
+  .panels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+
+    .left {
+      flex: 1 400px;
+      margin-top: 8px;
+    }
+
+    .right {
+      flex: 1 calc(100% - 400px - 20px);
+      margin-top: 8px;
+      min-width: 340px;
+    }
+  }
+}
+
+/* ✅ details box styling */
+.details-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.details-card h3 {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 4px;
+}
+
+/* ✅ grid layout inside each section */
+.details-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* left label, right value */
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+
+.details-grid div {
+  padding: 4px 0;
+  font-size: 14px;
+  color: #444;
+
+  &:first-child {
+    font-weight: 600;
+    color: #222;
+  }
+}

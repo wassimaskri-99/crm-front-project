@@ -1,0 +1,483 @@
+<!-- <div id="task-form" >
+  <toolbar-form
+    *ngIf="!isCreateMode"
+    [isEditing]="isEditing"
+    titleClass="dx-form-group-caption"
+    
+    (editingCancelled)="handleCancelClick()"
+    (editModeToggled)="handleEditClick()"
+    
+  
+  >
+  </toolbar-form> -->
+<!-- (saveButtonClicked)="handleSaveClick($event)" -->
+<div id="task-form" >
+  <dx-form
+ 
+    *ngIf="cotationss"
+    class="plain-styled-form"
+    [class.view-mode]="!isEditing"
+    [screenByWidth]="getSizeQualifier"
+  >
+  
+  <dxi-item>
+    <div *dxTemplate>
+      <dx-select-box
+      label="Demandeur"
+      [dataSource]="cotationsWithClientName"  
+      valueExpr="idDemandeur"               
+      displayExpr="clientName"
+      [(value)]="cotationss.idDemandeur"             
+      [readOnly]="!isEditing"
+      [searchEnabled]="true"
+      placeholder="Sélectionner un client"
+      >
+      </dx-select-box>
+    </div>
+  </dxi-item>
+  
+    <!-- Nouveau champ DateDemande -->
+    <dxi-item>
+      <div *dxTemplate>
+        <form-item-date
+          label="Date Demande"
+          text="Sélectionner une date"
+           
+          
+        ></form-item-date>
+      </div>
+    </dxi-item>
+    <!-- [(value)]="cotation.idCommercial"  -->
+<dxi-item>
+  <div *dxTemplate>
+    <dx-select-box
+    label="Commercial"
+    [dataSource]="cotationsWithComercilName"  
+    valueExpr="idCommercial"               
+    displayExpr="commercialName" 
+    [(value)]="cotationss.idCommercial"               
+    [readOnly]="!isEditing"
+    [searchEnabled]="true"
+    placeholder="Sélectionner un Commerciale"
+    ></dx-select-box>
+  </div>
+</dxi-item>
+<!-- [(value)]="cotationss.idSens"  -->
+<dxi-item [visible]="isCreateMode">
+  
+  <div *dxTemplate>
+    <dx-radio-group
+    
+      [(value)]="cotationss.idSens" 
+      label="sens"  
+      [items]="[
+        { id: 1, name: 'Import' },
+        { id: 2, name: 'Export' }
+      ]"
+      valueExpr="id"
+      displayExpr="name"
+      layout="horizontal"
+    >
+    </dx-radio-group>
+  </div>
+</dxi-item>
+
+<!-- [(value)]="cotationss.idTypeOperation" -->
+
+
+
+<dxi-item>
+  <div *dxTemplate>
+    <dx-select-box
+    label="Type operation"
+    [dataSource]="typeOperationDesignation"  
+    valueExpr="idTypeOperation"               
+    displayExpr="typeOp" 
+    [(value)]="cotationss.idTypeOperation"               
+    [readOnly]="!isEditing"
+    [searchEnabled]="true"
+    placeholder="Sélectionner typ. op."
+    ></dx-select-box>
+  </div>
+</dxi-item>
+
+
+<dxi-item>
+  <div *dxTemplate>
+    <dx-select-box
+    label="nature"
+    [dataSource]="natureDesignation"  
+    valueExpr="idNature"               
+    displayExpr="natureDes" 
+    [(value)]="cotationss.idNature"               
+    [readOnly]="!isEditing"
+    [searchEnabled]="true"
+    placeholder="Sélectionner nature"
+    ></dx-select-box>
+  </div>
+</dxi-item>
+
+
+<!-- Group Client -->
+<dxi-item itemType="group" caption="Client" [colSpan]="2">
+  <dxo-col-count-by-screen [xs]="1" [sm]="2"></dxo-col-count-by-screen>
+
+  <!-- Checkbox Nouveau -->
+  <dxi-item>
+    <div *dxTemplate>
+      <dx-check-box
+        text="Nouveau"
+        
+        [readOnly]="!isEditing">
+      </dx-check-box>
+    </div>
+  </dxi-item>
+
+  <!-- Checkbox Mettre à jour fiche client -->
+  <dxi-item>
+    <div *dxTemplate>
+      <dx-check-box
+        text="Mettre à jour fiche client"
+       
+        [readOnly]="!isEditing">
+      </dx-check-box>
+    </div>
+  </dxi-item>
+
+<!-- cordonnée fiche client -->
+<!-- <dxi-item>
+  <div *dxTemplate>
+    <dx-select-box
+    label="Raison sociale *"
+    [dataSource]="CotationraisonSociale"  
+    valueExpr="id"               
+    displayExpr="raisonSoc" 
+    [(value)]="raisonSociales.id"               
+    [readOnly]="!isEditing"
+    [searchEnabled]="true"
+    placeholder="Sélectionner raison sociale"
+    ></dx-select-box>
+  </div>
+</dxi-item>
+<dxi-item>
+  <div *dxTemplate>
+    <dx-select-box
+    label="Contact"
+    [dataSource]="ContactRaisonSociale"  
+    valueExpr="prenom"               
+    displayExpr="raisonContact" 
+    [(value)]="raisonSociales.id"               
+    [readOnly]="!isEditing"
+    [searchEnabled]="true"
+    placeholder="Sélectionner raison sociale"
+    ></dx-select-box>
+  </div>
+</dxi-item> -->
+
+ <!-- cordonnée fiche client  -->
+ <dxi-item>
+  <div *dxTemplate>
+
+<dx-select-box
+  label="Raison sociale *"
+  [dataSource]="CotationraisonSociale"  
+  valueExpr="id"               
+  displayExpr="raisonSoc" 
+  [(value)]="raisonSociales.id"               
+  [readOnly]="!isEditing"
+  [searchEnabled]="true"
+  placeholder="Sélectionner raison sociale"
+  (onValueChanged)="loadContactsByRaisonSociale($event.value)">
+</dx-select-box>
+</div>
+</dxi-item>
+<dxi-item>
+  <div *dxTemplate>
+
+<dx-select-box
+  label="Contact"
+  [dataSource]="ContactRaisonSociale"  
+  valueExpr="idTiers"               
+  displayExpr="raisonContact" 
+  [(value)]="raisonSociales.id"               
+  [readOnly]="!isEditing"
+  [searchEnabled]="true"
+  placeholder="Sélectionner contact">
+</dx-select-box>
+</div>
+</dxi-item>
+
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Adresse"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Telephone"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Fax"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Email"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+
+
+
+
+
+
+
+<!-- Group  Départ-->
+<dxi-item itemType="group" caption="Depart" [colSpan]="2">
+  <dxo-col-count-by-screen [xs]="1" [sm]="2"></dxo-col-count-by-screen>
+
+ 
+
+<!-- cordonnée fiche Départ -->
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Adresse *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Pays *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Ville *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Code Postal "
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Port *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+
+
+
+</dxi-item>
+
+
+
+
+
+
+<!-- Group  Arrivé-->
+<dxi-item itemType="group" caption="Arrivé" [colSpan]="2">
+  <dxo-col-count-by-screen [xs]="1" [sm]="2"></dxo-col-count-by-screen>
+
+ 
+
+<!-- cordonnée fiche Arrivé -->
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Adresse *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Pays *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Ville *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Code Postal "
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Port *"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+
+
+
+</dxi-item>
+
+
+
+
+
+<!-- Group  Condition-->
+<dxi-item itemType="group" caption="Condition" [colSpan]="2">
+  <dxo-col-count-by-screen [xs]="1" [sm]="2"></dxo-col-count-by-screen>
+
+ 
+
+<!-- cordonnée fiche Départ -->
+<dxi-item>
+  <div *dxTemplate>
+    <dx-select-box
+    label="incoterm *"
+    [dataSource]="incotermCotation"  
+    valueExpr="designation"               
+    displayExpr="incotermName"
+    [(value)]="cotationss.idIncoterm"             
+    [readOnly]="!isEditing"
+    [searchEnabled]="true"
+    placeholder="Sélectionner un Incoterm *"
+    >
+    </dx-select-box>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Company Maritime*"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item>
+  <div *dxTemplate>
+    <dx-text-area
+      label="Condition"
+      [readOnly]="true"
+      height="220"
+      value="- Offre valable pour le colisage annoncé. Toute différence avec le colisage réel entraînera une variation du prix à facturer.
+- Offre valable sous condition d'acceptation de la marchandise à l'embarquement.
+- Offre sujette à la disponibilité de l'équipement et de l'espace.
+- Les surcharges flottantes sont basées sur les taux en vigueur au moment de la cotation et sont sujets à changement.
+- La conformité des changements avec les législations et/ou des pays de départ, de transit et de destination sont de la responsabilité de l'expéditeur et du destinataire."
+    >
+    </dx-text-area>
+  </div>
+</dxi-item>
+
+
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Remarque "
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+<dxi-item [visible]="isCreateMode">
+  <div *dxTemplate>
+    <form-textbox
+      label="Mode de Paiment"
+      [(value)]="task.text"
+      [isEditing]="isEditing"
+    ></form-textbox>
+  </div>
+</dxi-item>
+
+<dxi-item>
+    <div *dxTemplate>
+      <dx-check-box
+        text="Echance de Paiment"
+       
+        [readOnly]="!isEditing">
+      </dx-check-box>
+    </div>
+  </dxi-item>
+
+
+
+</dxi-item>
+
+
+
+    <dxi-item>
+      <div *dxTemplate>
+        <dx-button
+          text="Envoyer"
+          type="success"
+          icon="check"
+          stylingMode="contained"
+          (onClick)="onSave()">
+        </dx-button>
+      </div>
+    </dxi-item>
+  
+
+  
+
+
+  <!-- <dx-load-panel
+    content="#task-form"
+    [visible]="!task || isLoading"
+    [showPane]="false"
+    [position]="{ of: '#task-form' }"
+  ></dx-load-panel> -->
+
+
+

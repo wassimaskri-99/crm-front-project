@@ -1,0 +1,103 @@
+// @use "../../../../variables.scss" as *;
+
+// #task-form {
+//   min-height: 250px;
+// }
+
+// .form-editor {
+//   task-priority,
+//   task-status {
+//     position: absolute;
+//     bottom: 0;
+//     padding-left: calc(var(--filled-texteditor-input-horizontal-padding) + 3px);
+
+//     ::ng-deep {
+//       span {
+//         font-size: 13px;
+//       }
+//     }
+//   }
+// }
+@use "../../../../variables.scss" as *;
+
+#task-form {
+  width: 80vw;  // 80% of viewport width
+  max-width: 1000px; // optional max width
+  height: 80vh; // 80% of viewport height
+  min-height: 400px; // optional min height
+  margin: auto; // center horizontally
+
+  // Formulaire principal
+  .plain-styled-form {
+    // Alignement global des éléments
+    dxi-item {
+      margin-bottom: 15px;
+    }
+
+    // Champs génériques : texte et textarea
+    .form-editor {
+      input,
+      textarea {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+
+    // Task Priority et Status
+    task-priority,
+    task-status {
+      position: absolute;
+      bottom: 0;
+      padding-left: calc(var(--filled-texteditor-input-horizontal-padding) + 3px);
+
+      ::ng-deep span {
+        font-size: 13px;
+      }
+    }
+
+    // Fieldset Client
+    dxi-item[itemtype="group"][caption="Client"] {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      dxi-item {
+        dx-check-box {
+          ::ng-deep .dx-checkbox-text {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+
+    // Date fields
+    form-item-date {
+      ::ng-deep input {
+        font-size: 14px;
+        padding: 6px;
+      }
+    }
+
+    // Texte long (Details / Description)
+    dx-text-area {
+      ::ng-deep textarea {
+        font-size: 14px;
+        min-height: 80px;
+        padding: 8px;
+      }
+    }
+  }
+
+  // Load panel
+  dx-load-panel.dx-loadpanel {
+    width: 80vw;
+  height: 80vh;
+  }
+}
+  @media (max-width: 768px) {
+    #task-form {
+      width: 768px;
+      height: 9000vh;
+    }
+  }
+

@@ -1,0 +1,126 @@
+
+<dx-scroll-view class="view-wrapper-scroll">
+  <div class="view-wrapper">
+    <dx-toolbar class="toolbar-details theme-dependent">
+      <dxi-item location="before">
+        <dx-button 
+          icon="arrowleft" 
+          stylingMode="text"
+          (onClick)="navigateBack()">
+        </dx-button>
+      </dxi-item>
+      <dxi-item location="before" [text]="taskName"></dxi-item>
+      <dxi-item location="after" locateInMenu="auto">
+        <dx-drop-down-button text="Actions" stylingMode="text" [dropDownOptions]="{ width: 'auto' }">
+          <dxi-item text="Duplicate"></dxi-item>
+          <dxi-item text="Close"></dxi-item>
+          <dxi-item text="Delete"></dxi-item>
+        </dx-drop-down-button>
+      </dxi-item>
+      <dxi-item
+        location="after"
+        locateInMenu="auto"
+        widget="dxButton"
+        showText="inMenu"
+        [options]="{
+          text: 'Attach',
+          icon: 'attach',
+          stylingMode: 'text'
+        }"
+      ></dxi-item>
+      <dxi-item
+        location="after"
+        locateInMenu="auto"
+        widget="dxButton"
+        showText="inMenu"
+        [options]="{
+          text: 'Refresh',
+          icon: 'refresh',
+          onClick: refresh,
+          stylingMode: 'text'
+        }"
+      ></dxi-item>
+    </dx-toolbar>
+
+    <div class="panels">
+
+
+
+
+
+
+
+
+<div class="dx-card details-card">
+    <h3>Informations Générales</h3>
+    <div class="details-grid">
+      <div><b>Demandeur:</b></div>
+      <div>{{ getLibelle(frameworkSalaire, cotation?.idDemandeur, 'fullName') }}</div>
+      
+  
+      <div><b>Date Demande:</b></div>
+      <div>{{ cotation?.dateDemande | date }}</div>
+  
+      <div><b>Commercial:</b></div>
+      <div>{{ getLibelle(frameworkSalaire, cotation?.idCommercial, 'fullName') }}</div>
+  
+      <div><b>Type Opération:</b></div>
+      <div>{{ getLibelle(typeOperation, cotation?.idTypeOperation, 'designation') }}</div>
+  
+      <div><b>Sens:</b></div>
+      <div>{{ getLibelle(sensCotation, cotation?.idSens, 'designation') }}</div>
+  
+      <div><b>Nature:</b></div>
+      <div>{{ getLibelle(natureCotation, cotation?.idNature, 'designation') }}</div>
+    </div>
+  
+    <h3>Départ</h3>
+    <div class="details-grid">
+      <div><b>Adresse Départ:</b></div>
+      <div>{{ cotation?.adresseDepart }}</div>
+  
+      <div><b>Pays Départ:</b></div>
+      <div>{{ getLibelle(pays, cotation?.idPaysDepart, 'libelle') }}</div>
+  
+      <div><b>Port Départ:</b></div>
+      <div>{{ getLibelle(port, cotation?.idPortDepart, 'libelle') }}</div>
+    </div>
+  
+    <h3>Arrivée</h3>
+    <div class="details-grid">
+      <div><b>Adresse Arrivée:</b></div>
+      <div>{{ cotation?.adresseArrivee }}</div>
+  
+      <div><b>Pays Arrivée:</b></div>
+      <div>{{ getLibelle(pays, cotation?.idPaysArrivee, 'libelle') }}</div>
+  
+      <div><b>Port Arrivée:</b></div>
+      <div>{{ getLibelle(port, cotation?.idPortArrivee, 'libelle') }}</div>
+    </div>
+  
+    <h3>Conditions</h3>
+    <div class="details-grid">
+      <div><b>Incoterm:</b></div>
+      <div>{{ getLibelle(incoterms, cotation?.idIncoterm, 'designation') }}</div>
+  
+      <div><b>Conditions Générales:</b></div>
+      <div>{{ cotation?.conditionsGenerales }}</div>
+  
+      <div><b>Remarques:</b></div>
+      <div>{{ cotation?.remarques }}</div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </dx-scroll-view> -->
+  

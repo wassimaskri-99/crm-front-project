@@ -1,0 +1,339 @@
+<!-- <div class="view-wrapper list-page">
+  <dx-toolbar class="theme-dependent">
+    <dxi-item location="before">
+      <span class="toolbar-header"></span>
+    </dxi-item>
+    <dxi-item location="before">
+      
+  
+    </dxi-item> -->
+    <div class="view-wrapper list-page">
+      <dx-toolbar class="theme-dependent">
+        <dxi-item location="before">
+          <span class="toolbar-header"></span>
+        </dxi-item>
+        <dxi-item location="before">
+          <dx-tabs
+            secondary="secondary"
+            [width]="(screen.xSmallScreenChanged | async) ? 220 : 'auto'"
+            [showNavButtons]="false"
+            [scrollByContent]="true"
+            [selectedIndex]="selectedIndex"
+            [items]="taskPanelItems"
+            (onItemClick)="tabValueChange($event)"
+          ></dx-tabs>
+        </dxi-item>
+    
+
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="plus"
+        text="Add Cotation"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="edit"
+        text="Modifier"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="print"
+        text="Imprimer"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="send"
+        text="Envoyer Cotation"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="export"
+        text="Generer Routing Order"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="close"
+        text="Cloturer Cotation"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="undo"
+        text="Annuler Cotation"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+    <dxi-item location="after" locateInMenu="auto">
+      <dx-button
+        icon="copy"
+        text="Dupliquer cotation"
+        type="default"
+        stylingMode="contained"
+        (onClick)="addTask()"
+      ></dx-button>
+    </dxi-item>
+
+    <dxi-item
+      location="after"
+      locateInMenu="auto"
+      widget="dxButton"
+      showText="inMenu"
+      [options]="{
+        text: 'Refresh',
+        icon: 'refresh',
+        onClick: refresh,
+        stylingMode: 'text'
+      }"
+    ></dxi-item>
+
+    </dx-toolbar>
+
+
+
+<dx-data-grid
+  id="tasks-grid"
+  class="theme-dependent"
+  height="100%"
+  [dataSource]="cotations"
+  (onRowClick)="navigateToDetails($event)"
+  (onEditingStart)="toogleUseNavigation()"
+  (onEditCanceled)="toogleUseNavigation()"
+  (onSaved)="toogleUseNavigation()"
+  [hoverStateEnabled]="true"
+  [columnAutoWidth]="true"
+  [showBorders]="true"
+>
+  <dxo-paging [pageSize]="15"></dxo-paging>
+  <dxo-pager [visible]="true" [showPageSizeSelector]="true"></dxo-pager>
+  <dxo-editing mode="row" [allowUpdating]="true"> </dxo-editing>
+  <dxo-selection
+    selectAllMode="allPages"
+    showCheckBoxesMode="always"
+    mode="multiple"
+  ></dxo-selection>
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+  <dxo-sorting mode="multiple"></dxo-sorting>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+  <dxi-column dataField="reference" caption="reference" [hidingPriority]="5">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="dateDemande" caption="date d." [hidingPriority]="5">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column
+    dataField="idDemandeur"
+    caption="client"
+    [hidingPriority]="5"
+  >
+  <dxo-lookup
+  [dataSource]="frameworkSalaire"
+  valueExpr="id"
+  displayExpr="fullName">
+</dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column
+    dataField="idTypeOperation"
+    caption="Type Operation"
+    [hidingPriority]="5"
+  >
+  <dxo-lookup
+  [dataSource]="typeOperation"
+  valueExpr="id"
+  displayExpr="designation">
+</dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+ 
+  <dxi-column dataField="idSens" caption="Sens" [hidingPriority]="5">
+    <dxo-lookup
+  [dataSource]="sensCotation"
+  valueExpr="id"
+  displayExpr="designation">
+</dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column
+    dataField="idNature"
+    caption="Nature"
+    [hidingPriority]="5">
+    <dxo-lookup
+  [dataSource]="natureCotation"
+  valueExpr="id"
+  displayExpr="designation">
+</dxo-lookup>
+  
+    <!-- <dxo-lookup [dataSource]="statusList"></dxo-lookup> -->
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="idIncoterm" caption="Incoterm" [hidingPriority]="5">
+    <dxo-lookup
+  [dataSource]="incoterms"
+  valueExpr="id"
+  displayExpr="designation">
+</dxo-lookup>
+
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <!-- <dxi-column
+    dataField="idOrdonnateur"
+    caption="Nature"
+    [hidingPriority]="3"
+    [minWidth]="120"
+    cellTemplate="cellStatus"
+    editCellTemplate="editCellStatus"
+  > -->
+  <dxi-column dataField="idPaysDepart" caption="Pays Depart" [hidingPriority]="5">
+    <dxo-lookup
+  [dataSource]="pays"
+  valueExpr="id"
+  displayExpr="libelle">
+</dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  
+  
+    <dxo-lookup [dataSource]="statusList"></dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  <dxi-column dataField="idPortDepart" caption="Port Depart" [hidingPriority]="5">
+    <dxo-lookup
+  [dataSource]="port"
+  valueExpr="id"
+  displayExpr="libelle">
+</dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  
+    
+
+  <dxi-column dataField="idPaysArrivee" caption="Pays Arrivé" [hidingPriority]="5">
+    <dxo-lookup
+  [dataSource]="pays"
+  valueExpr="id"
+  displayExpr="libelle"></dxo-lookup>
+
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+
+  <dxi-column dataField="idPortArrivee" caption="Port Arrivé" [hidingPriority]="5">
+    <dxo-lookup
+  [dataSource]="port"
+  valueExpr="id"
+  displayExpr="libelle"></dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+ 
+ 
+  <dxi-column dataField="tempsEstimTransit" caption="T. Estimatif" [hidingPriority]="5">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  
+  
+  <dxi-column
+  dataField="idCommercial"
+  caption="Commercial"
+  [hidingPriority]="5"
+>
+<dxo-lookup
+[dataSource]="frameworkSalaire"
+valueExpr="id"
+displayExpr="fullName">
+</dxo-lookup>
+  <dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
+
+  <dxi-column dataField="idCompany" caption="Armateur" [hidingPriority]="5">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+
+
+
+  
+  <!-- </dxi-column> -->
+
+
+  <div *dxTemplate="let cellInfo of 'cellPriority'">
+    <status-indicator
+      [isField]="false"
+      [showBar]="true"
+      [value]="cellInfo.data.priority"
+    >
+    </status-indicator>
+  </div>
+
+  <!-- <div *dxTemplate="let cellInfo of 'editCellPriority'">
+    <dx-select-box
+      class="edit-cell"
+      [(value)]="cellInfo.value"
+      [items]="priorityList"
+      (onValueChanged)="cellInfo.setValue($event.value)"
+      (onSelectionChanged)="cellInfo.component.updateDimensions()"
+      fieldTemplate="field"
+    > -->
+      <!-- <div *dxTemplate="let data of 'field'">
+        <status-indicator
+          [showBar]="true"
+          [value]="cellInfo.value"
+        ></status-indicator>
+      </div> -->
+      <div *dxTemplate="let data of 'item'">
+        <status-indicator
+          [showBar]="true"
+          [isField]="false"
+          [value]="data"
+        ></status-indicator>
+      </div>
+    <!-- </dx-select-box>
+  </div> -->
+
+  <div *dxTemplate="let cellInfo of 'cellStatus'">
+    <status-indicator
+      [isField]="false"
+      [value]="cellInfo.data.status"
+    ></status-indicator>
+  </div>
+
+  <div *dxTemplate="let cellInfo of 'editCellStatus'">
+    <dx-select-box
+      class="edit-cell"
+      [(value)]="cellInfo.value"
+      [items]="statusList"
+      (onValueChanged)="cellInfo.setValue($event.value)"
+      (onSelectionChanged)="cellInfo.component.updateDimensions()"
+      fieldTemplate="field"
+    >
+      <div *dxTemplate="let data of 'field'">
+        <status-indicator [value]="cellInfo.value"></status-indicator>
+      </div>
+      <div *dxTemplate="let s of 'item'">
+        <status-indicator [isField]="false" [value]="s"></status-indicator>
+      </div>
+    </dx-select-box>
+  </div>
+<!-- </dx-data-grid> -->

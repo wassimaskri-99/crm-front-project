@@ -1,0 +1,165 @@
+<dx-scroll-view class="view-wrapper-scroll">
+  <div class="view-wrapper">
+    <dx-toolbar class="toolbar-details theme-dependent">
+      <dxi-item location="before">
+        <dx-button 
+          icon="arrowleft" 
+          stylingMode="text"
+          (onClick)="navigateBack()">
+        </dx-button>
+      </dxi-item>
+      <dxi-item location="before" [text]="taskName"></dxi-item>
+      <dxi-item location="after" locateInMenu="auto">
+        <dx-drop-down-button text="Actions" stylingMode="text" [dropDownOptions]="{ width: 'auto' }">
+          <dxi-item text="Duplicate"></dxi-item>
+          <dxi-item text="Close"></dxi-item>
+          <dxi-item text="Delete"></dxi-item>
+        </dx-drop-down-button>
+      </dxi-item>
+      <dxi-item
+        location="after"
+        locateInMenu="auto"
+        widget="dxButton"
+        showText="inMenu"
+        [options]="{
+          text: 'Attach',
+          icon: 'attach',
+          stylingMode: 'text'
+        }"
+      ></dxi-item>
+      <dxi-item
+        location="after"
+        locateInMenu="auto"
+        widget="dxButton"
+        showText="inMenu"
+        [options]="{
+          text: 'Refresh',
+          icon: 'refresh',
+          onClick: refresh,
+          stylingMode: 'text'
+        }"
+      ></dxi-item>
+    </dx-toolbar>
+
+    <div class="panels">
+      <!-- <div class="left">
+        <dx-validation-group>
+          <task-form [task]="task" [isLoading]="isLoading"></task-form>
+        </dx-validation-group>
+      </div> -->
+      <div class="left">
+        <div class="dx-card details-card">
+          <h3>Cotation Details</h3>
+      
+          <label for="reference"><b>Référence:</b></label>
+<textarea id="reference" rows="1" readonly class="form-control">
+  {{ cotation?.reference }}
+</textarea>
+
+          <p><b>Demandeur:</b>
+            {{ getLibelle(frameworkSalaire, cotation?.idDemandeur, 'fullName') }}
+          </p>
+          
+          
+          <p><b>Date Demande:</b> {{ cotation?.dateDemande | date }}</p>
+
+          <p><b>Commercial:</b>
+            {{ getLibelle(frameworkSalaire, cotation?.idCommercial, 'fullName') }}
+          </p>
+          
+          <p><b>Type Opération:</b>
+            {{ getLibelle(typeOperation, cotation?.idTypeOperation, 'designation')  }}
+          </p>
+          
+          <p><b>Sens:</b>
+            {{ getLibelle(sensCotation, cotation?.idSens, 'designation') }}
+          </p>
+          
+          <p><b>Nature:</b>
+            {{ getLibelle(natureCotation, cotation?.idNature, 'designation') }}
+          </p>
+          
+          <p><b>Ordonnateur:</b> {{ cotation?.idOrdonnateur }}</p>
+          <p><b>Is New Ordonnateur:</b> {{ cotation?.isNewOrdonnateur ? 'Oui' : 'Non' }}</p>
+          <p><b>Contact Ordonnateur:</b> {{ cotation?.idContactOrdonnateur }}</p>
+      
+          <p><b>Incoterm:</b>
+            {{ getLibelle(incoterms, cotation?.idIncoterm, 'designation') }}
+          </p>
+          
+          <p><b>Pays Départ:</b>
+            {{ getLibelle(pays, cotation?.idPaysDepart, 'libelle') }}
+          </p>
+          
+          <p><b>Pays Arrivée:</b>
+            {{ getLibelle(pays, cotation?.idPaysArrivee, 'libelle') }}
+          </p>
+          
+          <p><b>Port Départ:</b>
+            {{ getLibelle(port, cotation?.idPortDepart, 'libelle') }}
+          </p>
+          
+          <p><b>Port Arrivée:</b>
+            {{ getLibelle(port, cotation?.idPortArrivee, 'libelle') }}
+          </p>
+          
+       
+          <p><b>Remarques:</b> {{ cotation?.remarques }}</p>
+          <p><b>Date Devise Achat:</b> {{ cotation?.dateDeviseAchat | date }}</p>
+          <p><b>Date Devise Vente:</b> {{ cotation?.dateDeviseVente | date }}</p>
+          <p><b>Date Validité Offre:</b> {{ cotation?.dateValiditeOffre | date }}</p>
+          <p><b>Temps Estimé Transit:</b> {{ cotation?.tempsEstimTransit }}</p>
+          <p><b>Commentaires Envoi Cotation:</b> {{ cotation?.commentairesEnvoiCotation }}</p>
+      
+          <p><b>Total Vente:</b> {{ cotation?.totalVente | number:'1.2-2' }}</p>
+          <p><b>Total Achat:</b> {{ cotation?.totalAchat | number:'1.2-2' }}</p>
+          <p><b>Marge:</b> {{ cotation?.marge | number:'1.2-2' }}</p>
+          <p><b>Marge %:</b> {{ cotation?.margePercent }}%</p>
+      
+          <p><b>Adresse Départ:</b> {{ cotation?.adresseDepart }}</p>
+          <p><b>Adresse Arrivée:</b> {{ cotation?.adresseArrivee }}</p>
+          <p><b>Contre Offre:</b> {{ cotation?.contreOffre }}</p>
+          <p><b>Détail Perte:</b> {{ cotation?.detailPerte }}</p>
+          <p><b>Conditions Générales:</b> {{ cotation?.conditionsGenerales }}</p>
+          <p><b>Date Rappel:</b> {{ cotation?.dateRappel | date }}</p>
+      
+          <p><b>Is All In:</b> {{ cotation?.isAllIn ? 'Oui' : 'Non' }}</p>
+          <p><b>Montant All In:</b> {{ cotation?.montantAllIn }}</p>
+        </div>
+      </div>
+      
+      
+
+      <!-- <div class="right theme-dependent">
+        <div class="dx-card details-card">
+          <dx-tab-panel
+            secondary="secondary"
+            [focusStateEnabled]="false"
+            [showNavButtons]="true"
+            [deferRendering]="false"
+          > -->
+            <!-- <dxi-item title="Activities">
+              <card-activities
+                [isLoading]="isLoading"
+                [activities]="task?.activities"
+                [showBy]="true"
+              ></card-activities>
+            </dxi-item>
+            <dxi-item title="Notes">
+              <card-notes
+                [items]="task?.notes"
+                [user]="task?.owner"
+              ></card-notes>
+            </dxi-item>
+            <dxi-item title="Messages">
+              <card-messages
+                [items]="task?.messages"
+                [user]="task?.owner"
+              ></card-messages>
+            </dxi-item>
+          </dx-tab-panel> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </dx-scroll-view> -->
